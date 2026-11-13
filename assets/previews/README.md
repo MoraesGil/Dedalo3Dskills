@@ -2,12 +2,12 @@
 
 These are original synthetic concept diagrams. They are not application recordings, native slicer previews, calibrated physics, or physical print results.
 
-Regenerate the assets from the repository root:
+Render the five procedural previews and preserve the contributed relief media from the repository root:
 
     python -m pip install -r tools/requirements-previews.txt
     python tools/render_previews.py
 
-The renderer uses Pillow's bundled font and no customer models. It also writes the collection banner. PNG posters provide a static fallback. Pixel output can change when the renderer dependency changes.
+The five procedural scenes use Pillow's bundled font and no customer models. The contributed relief GIF and its synthetic geometry poster are copied byte-for-byte from tracked assets; their original composition source is not included. The renderer also writes the collection banner and six-entry catalog. PNGs provide static fallbacks. Procedural pixel output can change when the dependency changes.
 
 ## Prender3D
 
@@ -59,3 +59,12 @@ O G-code de pré-fatiamento determina camadas e materiais. A torre termina na ú
 
 [Static PNG](torre-burj.png)
 
+## Raised relief / destacar relevo 3D
+
+![Synthetic concept: flat part versus raised outline, buried root and material-priority checks.](destacar-relevo-3d.gif)
+
+A reference-guided raised outline and its buried root. Concept only; no native slice or print test.
+
+Contorno elevado guiado por referência e sua raiz embutida. Conceito sem fatiamento nativo nem teste físico.
+
+[Static PNG](destacar-relevo-3d.png)

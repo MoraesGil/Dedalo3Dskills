@@ -2,7 +2,7 @@
 
 [Back to the catalog](../README.md#skill-catalog)
 
-## What is supported
+## Retention editors: what is supported
 
 | Area | Current scope |
 | --- | --- |
@@ -58,3 +58,9 @@ The helpers neither start prints nor change a live printer's speed, temperature 
 ## Dependency licenses
 
 NumPy, lxml, trimesh, Shapely and the declared mesh-analysis dependencies are installed separately under their own licenses. The MIT license in this repository covers the original skill instructions, helpers, illustrations and documentation. Models and printer software retain their existing licenses.
+
+## Image-based relief
+
+[Destacar relevo 3D](../skills/printing/destacar-relevo-3d/SKILL.md) adds a separate workflow for image registration, contrasting outlines and raised emblems. Its helper accepts a reviewed planar XY polygon with holes and produces a closed STL in a temporary directory. Install its own requirements.txt. It does not reuse the retention writers and does not promise automatic 3MF integration or curved projection.
+
+Synthetic tests cover planar topology, holes, requested dimensions, invalid inputs and mesh export/reload. Native slicing, color priority, registration, preserved functional voids and physical adhesion must be checked for each real project.

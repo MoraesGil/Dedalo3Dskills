@@ -4,18 +4,31 @@
 
 **Measure the part. Prepare the print. Check the toolpaths.**
 
-Agent skills and deterministic tools for practical 3D printing: geometry analysis, parameterized contact footprints, localized retention and a custom Burj purge/priming tower.
+Agent skills and deterministic tools for practical 3D printing: geometry analysis, parameterized contact footprints, localized retention, image-guided relief and a custom Burj purge/priming tower.
 
 [Português brasileiro](README.pt-BR.md) · [Catalog](#skill-catalog) · [Tools](tools/README.md) · [MIT — commercial use permitted](LICENSE)
 
 ![Dedalo3Dskills: geometry, footprints, localized support, articulated octopi and a Burj tower.](assets/dedalo3d-collection.svg)
+
+## Skill catalog
+
+Click a preview to open its full-size GIF. These animations are synthetic concepts, not slicer or print tests.
+
+| Preview | Skill | Use case |
+| --- | --- | --- |
+| [<img src="assets/previews/analyze-3d-geometry.gif" width="220" alt="Synthetic concept: Analyze 3D geometry">](assets/previews/analyze-3d-geometry.gif) | [Analyze 3D geometry](skills/analysis/analyze-3d-geometry/SKILL.md) | Inspect roots, transforms and first-layer sections. |
+| [<img src="assets/previews/custom-footprint.gif" width="220" alt="Synthetic concept: Custom footprint">](assets/previews/custom-footprint.gif) | [Custom footprint](skills/printing/custom-footprint/SKILL.md) | Parameterize support masks, contacts and keepouts. |
+| [<img src="assets/previews/prender-3d.gif" width="220" alt="Synthetic concept: Prender3D">](assets/previews/prender-3d.gif) | [Prender3D](skills/printing/prender-3d/SKILL.md) | Brace fixed walls with low native support and brim. |
+| [<img src="assets/previews/prender-polvo-3d.gif" width="220" alt="Synthetic concept: PrenderPolvo3D">](assets/previews/prender-polvo-3d.gif) | [PrenderPolvo3D](skills/printing/prender-polvo-3d/SKILL.md) | Protect moving joints in the supported octopus family. |
+| [<img src="assets/previews/torre-burj.gif" width="220" alt="Synthetic concept: Burj tower">](assets/previews/torre-burj.gif) | [Burj tower](skills/printing/torre-burj/SKILL.md) | Calculate one purge/priming tower from fresh G-code. |
+| [<img src="assets/previews/destacar-relevo-3d.gif" width="220" alt="Synthetic concept: Raised relief">](assets/previews/destacar-relevo-3d.gif) | [Raised relief](skills/printing/destacar-relevo-3d/SKILL.md) | Plan image-guided outlines and emblems; planar STL helper. |
 
 ## Install
 
 Use the [skills CLI](https://github.com/vercel-labs/skills):
 
 ```bash
-npx skills@latest add MoraesGil/Dedalo3Dskills --skill analyze-3d-geometry custom-footprint prender-3d prender-polvo-3d torre-burj
+npx skills@latest add MoraesGil/Dedalo3Dskills --skill analyze-3d-geometry custom-footprint prender-3d prender-polvo-3d torre-burj destacar-relevo-3d
 ```
 
 Choose your agent when prompted. Installation is project-local by default. Analysis, footprint and octopus skills reuse `prender-3d`; install it alongside them. Burj is self-contained. Dependencies are declared in the instructions; do not assume the installer resolves them automatically.
@@ -30,27 +43,15 @@ python -m pip install -r skills/printing/prender-3d/requirements.txt
 
 Python 3.12 is tested. Read the relevant `SKILL.md` before running helpers. No slicer, printer preset or printer connection is bundled.
 
-## Skill catalog
-
-| Skill | Use case | Output and limit |
-| --- | --- | --- |
-| [Analyze 3D geometry](skills/analysis/analyze-3d-geometry/SKILL.md) | Inspect a multipart project before editing. | Read-only sections, transforms and functional constraints that need review. |
-| [Custom footprint](skills/printing/custom-footprint/SKILL.md) | Choose contour, contacts, margin, height and keepouts. | Native retention-mask plan; no modeled solid base. |
-| [Prender3D](skills/printing/prender-3d/SKILL.md) | Restrain tall grips and parts with small bed contact. | Local native support/brim touching approved fixed surfaces. |
-| [PrenderPolvo3D](skills/printing/prender-polvo-3d/SKILL.md) | Restrain the supported eight-arm octopus family. | Low common-base contacts with moving joints protected. |
-| [Burj tower](skills/printing/torre-burj/SKILL.md) | Calculate one tower from fresh prepass G-code. | Prepared 3MF, layer/material plan and fresh-G-code audit. |
+## Usage examples
 
 ### Analyze before editing
 
 > Analyze this 3MF without changing it. Measure its first-layer section, identify roots and modifiers, and show fixed surfaces and keepouts that need review.
 
-![Concept: inspect geometry and functional keepouts.](assets/previews/analyze-3d-geometry.gif)
-
 ### Parameterize the footprint
 
 > Plan an elliptical retention footprint with eight contact angles, a 3 mm height ceiling and explicit joint keepouts. Preserve the socket. Generate native modifier descriptors for review.
-
-![Concept: choose contours and protected regions for native masks.](assets/previews/custom-footprint.gif)
 
 The planner produces JSON. Applying it and slicing are separate steps. “Custom footprint” describes the support/brim contact plan; it adds no printable collar, foot or base.
 
@@ -58,15 +59,11 @@ The planner produces JSON. Applying it and slicing are separate steps. “Custom
 
 > Use Prender3D on this handle. Measure fixed walls and bed contact. Add low native lateral support within my height limit. Protect the socket, preserve geometry and settings, and check a fresh slice.
 
-![Concept: low support braces fixed walls and leaves the socket clear.](assets/previews/prender-3d.gif)
-
 Support must touch the intended fixed surface above the first layer and remain connected to the bed. Detached islands provide no lateral restraint. Our grip-print experience motivates this workflow; it does not guarantee adhesion for every machine and material.
 
 ### Protect articulated joints
 
 > Use PrenderPolvo3D if the geometry matches its template. Keep support in the approved 0–3 mm band of the fixed common base. Use shape-following blockers and protect every moving joint. Keep brim off the octopus and support tree.
-
-![Concept: low radial and inner contacts preserve moving-arm spaces.](assets/previews/prender-polvo-3d.gif)
 
 This 3 mm profile belongs to the common base, not half the themed head. Support height, enforcer thickness and branch diameter are separate parameters.
 
@@ -74,13 +71,17 @@ This 3 mm profile belongs to the common base, not half the themed head. Support 
 
 > Calculate a Burj from the saved project and fresh tower-free G-code. Preserve printer, materials and temperatures. Complete a tower passage after each real tool change, before product or interface deposition. Stop at the last real change. Validate the final native G-code.
 
-![Concept: the tower follows material needs and ends at the last real color change.](assets/previews/torre-burj.gif)
-
 Inspired by the **Burj Khalifa**, the stepped profile combines a broad adhesion footprint with a narrowing upper section. The calculator accounts for different object heights/sizes, per-layer materials, minimal structural growth and configurable brim. PETG, PLA and mixed-material projects use their existing calibrated physical slots; no universal temperature or adhesion guarantee is supplied.
 
 The contract is **one physical custom tower**. On the tested Snapmaker U1, enabling the native prime tower creates an additional tower. This workflow keeps it disabled and verifies actual extrusion in the Burj after each tool change. A persisted “Flush into this object” checkbox alone does not prove that the engine routed purge there. See the [Burj skill](skills/printing/torre-burj/SKILL.md) for supported settings and limits.
 
-All five animations are original **synthetic concept diagrams**, not slicer recordings or physical print evidence. [Static posters and the reproducible renderer](assets/previews/README.md) are included.
+All six animations are original **synthetic concept diagrams**, not slicer recordings or physical print evidence. [Static posters and the reproducible renderer](assets/previews/README.md) are included.
+
+### Create a raised highlight
+
+> Use destacar-relevo-3d with this image and part. Register the motif at the measured scale and create a raised white outline. Preserve the opening and project data. Confirm the colored root in fresh G-code.
+
+The optional helper accepts reviewed planar polygons and generates a closed STL. It does not read raster images, edit a 3MF or slice. Install its [own requirements](skills/printing/destacar-relevo-3d/requirements.txt). The [conceptual GIF](assets/previews/destacar-relevo-3d.gif) compares flat geometry, raised outline and buried root.
 
 ## How the skills fit together
 
@@ -121,6 +122,7 @@ Tests cover synthetic geometry, metadata preservation and planning/audit invaria
 Read [compatibility](docs/compatibility.md), the [retention workflow](docs/retention-workflow.md) and [native slicing](docs/slicing.md). No tool starts or controls a printer.
 
 ```bash
+python -m pip install -r requirements-dev.txt
 python scripts/validate_repository.py
 python -m unittest discover -s tests -v
 ```

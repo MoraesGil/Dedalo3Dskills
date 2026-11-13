@@ -6,6 +6,7 @@ These commands are thin entry points for a **repository checkout**. Algorithms l
 | --- | --- | --- |
 | `python tools/dedalo3d/geometry_preflight.py --help` | [Analyze 3D geometry](../skills/analysis/analyze-3d-geometry/SKILL.md) | Read-only sections and project inventory. |
 | `python tools/dedalo3d/footprint.py --help` | [Custom footprint](../skills/printing/custom-footprint/SKILL.md) | Parameterized native-mask JSON plan. |
+| `python tools/dedalo3d/relief.py --help` | [Destacar relevo 3D](../skills/printing/destacar-relevo-3d/SKILL.md) | Reviewed planar polygon to raised STL; install its own requirements. |
 | `python tools/dedalo3d/burj.py --help` | [Burj tower](../skills/printing/torre-burj/SKILL.md) | `prepare`, `build`, and `audit`, using actual prepass G-code. |
 
 For retention application, use [apply_retention.py](../skills/printing/prender-3d/scripts/apply_retention.py). It accepts only reviewed retention settings. Its source hash, explicit root, temporary output and process validation are part of the guarded CLI contract.
@@ -35,4 +36,4 @@ python -m pip install -r tools/requirements-previews.txt
 python tools/render_previews.py
 ```
 
-This optional renderer produces original synthetic GIFs, posters and the collection banner. It consumes no client models and makes no measurements of an actual print. See [preview details](../assets/previews/README.md).
+This optional renderer produces five procedural GIFs and preserves the contributed relief GIF and poster byte-for-byte. It writes the six-entry catalog and collection banner. It consumes no client models and makes no measurements of an actual print. See [preview details](../assets/previews/README.md).

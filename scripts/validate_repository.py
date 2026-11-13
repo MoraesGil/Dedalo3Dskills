@@ -1,11 +1,24 @@
 """Validate public skill metadata, local documentation links and publication hygiene."""
 from pathlib import Path
+from html.parser import HTMLParser
 import json
 import re
 import sys
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+class HtmlLinks(HTMLParser):
+    """Include image thumbnails and links in the same local-link check."""
+    def __init__(self):
+        super().__init__()
+        self.targets = []
+
+    def handle_starttag(self, tag, attrs):
+        for key, value in attrs:
+            if (tag, key) in {("img", "src"), ("a", "href")} and value:
+                self.targets.append(value)
 
 
 def main():
@@ -81,7 +94,10 @@ def main():
         if path.name != Path(__file__).name and any(pattern.search(text) for pattern in secret_patterns):
             failures.append((str(relative), "possible secret; inspect locally without printing it"))
         if path.suffix == ".md":
-            for target in re.findall(r"!?\[[^\]]*\]\(([^)\s]+)(?:\s+[^)]*)?\)", text):
+            html = HtmlLinks()
+            html.feed(text)
+            targets = re.findall(r"!?\[[^\]]*\]\(([^)\s]+)(?:\s+[^)]*)?\)", text)
+            for target in targets + html.targets:
                 target = target.strip("<>")
                 parsed = urlsplit(target)
                 if parsed.scheme or not parsed.path:

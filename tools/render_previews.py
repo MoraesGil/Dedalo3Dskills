@@ -7,8 +7,10 @@ Only Pillow is required; its bundled font keeps the tool self-contained.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import math
 from pathlib import Path
+import shutil
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -319,6 +321,33 @@ SCENES = {
 }
 
 
+def contributed_relief(output_dir):
+    """Preserve the reviewed PR animation byte-for-byte; do not re-render it."""
+    source_dir = Path(__file__).resolve().parents[1] / "assets/previews"
+    slug = "destacar-relevo-3d"
+    gif, poster = (source_dir / (slug + suffix) for suffix in (".gif", ".png"))
+    with Image.open(gif) as source:
+        width, height = source.size
+        frames = source.n_frames
+        duration = 0
+        for index in range(frames):
+            source.seek(index)
+            source.convert("RGB").load()
+            duration += source.info.get("duration", 0)
+    with Image.open(poster) as image:
+        image.load()
+    for path in (gif, poster):
+        target = output_dir / path.name
+        if target.resolve() != path.resolve():
+            shutil.copyfile(path, target)
+    return {"skill": slug, "gif": gif.name, "poster": poster.name,
+            "frames": frames, "duration_ms": duration, "width": width, "height": height,
+            "bytes": gif.stat().st_size, "concept_only": True,
+            "source_kind": "preserved_contribution", "source_pr": 1,
+            "gif_sha256": hashlib.sha256(gif.read_bytes()).hexdigest(),
+            "poster_kind": "synthetic_geometry_render"}
+
+
 def render(output_dir, frames=36, duration_ms=120):
     if not 12 <= frames <= 180 or not 40 <= duration_ms <= 500:
         raise ValueError("Choose 12..180 frames and 40..500 ms per frame")
@@ -348,6 +377,7 @@ def render(output_dir, frames=36, duration_ms=120):
         results.append({"skill":slug,"gif":gif.name,"poster":poster.name,"frames":frames,
                         "duration_ms":actual_duration,"width":WIDTH,"height":HEIGHT,
                         "bytes":gif.stat().st_size,"concept_only":True})
+    results.append(contributed_relief(output_dir))
     return results
 
 
@@ -366,12 +396,17 @@ def write_preview_docs(output_dir, rows):
                "hero":"../dedalo3d-collection.svg", "renderer":"../../tools/render_previews.py",
                "pillow_version":Image.__version__, "previews":[]}
     labels = {'prender-3d': {'title': 'Prender3D', 'caption_en': 'Low native supports touch measured fixed walls while the socket remains clear.', 'caption_pt_br': 'Apoios nativos baixos tocam a parede fixa medida e preservam o encaixe.', 'alt': 'Synthetic concept diagram: Low native supports touch measured fixed walls while the socket remains clear.'}, 'prender-polvo-3d': {'title': 'PrenderPolvo3D', 'caption_en': 'Eight low side contacts and a small inner contact avoid the articulated joint spaces.', 'caption_pt_br': 'Oito contatos laterais baixos e um apoio interno preservam os espaços das articulações.', 'alt': 'Synthetic concept diagram: Eight low side contacts and a small inner contact avoid the articulated joint spaces.'}, 'analyze-3d-geometry': {'title': 'Analyze 3D geometry', 'caption_en': 'Inspect positive-mesh sections, transforms and unresolved functional keepouts before modifying the project.', 'caption_pt_br': 'Inspecione seções da malha positiva, transforms e regiões funcionais ainda não resolvidas antes de alterar o projeto.', 'alt': 'Synthetic concept diagram: Inspect positive-mesh sections, transforms and unresolved functional keepouts before modifying the project.'}, 'custom-footprint': {'title': 'Custom footprint', 'caption_en': 'Choose a measured contour, contact layout and height limit for native masks; no solid base is added.', 'caption_pt_br': 'Escolha contorno, contatos e limite de altura para máscaras nativas; nenhuma base sólida é adicionada.', 'alt': 'Synthetic concept diagram: Choose a measured contour, contact layout and height limit for native masks; no solid base is added.'}, 'torre-burj': {'title': 'Burj priming tower', 'caption_en': 'The prepass G-code determines layer/material needs. The tower stops at the last real colour change while taller models can continue.', 'caption_pt_br': 'O G-code de pré-fatiamento determina camadas e materiais. A torre termina na última troca real de cor, enquanto modelos mais altos podem continuar.', 'alt': 'Synthetic concept diagram: The prepass G-code determines layer/material needs. The tower stops at the last real colour change while taller models can continue.'}}
+    labels["destacar-relevo-3d"] = {
+        "title": "Raised relief / destacar relevo 3D",
+        "caption_en": "A reference-guided raised outline and its buried root. Concept only; no native slice or print test.",
+        "caption_pt_br": "Contorno elevado guiado por referência e sua raiz embutida. Conceito sem fatiamento nativo nem teste físico.",
+        "alt": "Synthetic concept: flat part versus raised outline, buried root and material-priority checks."}
     lines = ["# Skill previews", "",
              "These are original synthetic concept diagrams. They are not application recordings, native slicer previews, calibrated physics, or physical print results.", "",
-             "Regenerate the assets from the repository root:", "",
+             "Render the five procedural previews and preserve the contributed relief media from the repository root:", "",
              "    python -m pip install -r tools/requirements-previews.txt",
              "    python tools/render_previews.py", "",
-             "The renderer uses Pillow's bundled font and no customer models. It also writes the collection banner. PNG posters provide a static fallback. Pixel output can change when the renderer dependency changes.", ""]
+             "The five procedural scenes use Pillow's bundled font and no customer models. The contributed relief GIF and its synthetic geometry poster are copied byte-for-byte from tracked assets; their original composition source is not included. The renderer also writes the collection banner and six-entry catalog. PNGs provide static fallbacks. Procedural pixel output can change when the dependency changes.", ""]
     for row in rows:
         entry = dict(row, **labels[row["skill"]])
         catalog["previews"].append(entry)
@@ -380,7 +415,7 @@ def write_preview_docs(output_dir, rows):
                   entry["caption_en"], "", entry["caption_pt_br"], "",
                   "[Static PNG]("+entry["poster"]+")", ""]
     (output_dir/"catalog.json").write_text(json.dumps(catalog,indent=2,ensure_ascii=False)+"\n")
-    (output_dir/"README.md").write_text("\n".join(lines)+"\n")
+    (output_dir/"README.md").write_text("\n".join(lines).rstrip()+"\n")
 
 
 def main():
