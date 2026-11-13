@@ -49,6 +49,7 @@ Peça ao agente para ler o `SKILL.md` correspondente no checkout. Leia esse arqu
 | --- | --- | --- |
 | [Prender3D](skills/printing/prender-3d/SKILL.md) | Cabos altos, áreas pequenas de contato e outras peças que precisam de apoio lateral limitado. | Medir a geometria e respeitar as zonas de contato, a altura e as regiões protegidas pedidas para a peça. |
 | [PrenderPolvo3D](skills/printing/prender-polvo-3d/SKILL.md) | Polvos articulados que correspondem à geometria de oito braços suportada. | Proteger as juntas e manter o perfil baixo aprovado na base comum fixa. |
+| [Destacar relevo 3D](skills/printing/destacar-relevo-3d/SKILL.md) | Contornos, emblemas e detalhes elevados a partir de uma imagem de referência. | Registrar a imagem na superfície e conferir a raiz colorida no G-code. |
 
 O Prender3D é o núcleo reutilizável. O PrenderPolvo3D acrescenta uma distribuição radial medida e um perfil específico para polvo. Novas skills entrarão no catálogo conforme estiverem úteis e prontas para compartilhar.
 
@@ -65,6 +66,16 @@ A altura desse exemplo é uma restrição do pedido, não uma recomendação uni
 > Use PrenderPolvo3D neste polvo. Primeiro, confirme que a geometria corresponde ao template de oito braços. Use o perfil aprovado de suporte em 0–3 mm na base comum, com contato no corpo fixo e proteção das juntas móveis. Use blockers compactos que acompanhem o formato medido. Mantenha brim fora do corpo, dos tentáculos e da tree. Preserve o assembly e valide o novo G-code.
 
 O perfil de 3 mm se refere à base comum desse template. Ele não significa metade da altura de qualquer cabeça temática e não é um padrão para peças diferentes.
+
+## Criar um destaque em relevo
+
+```bash
+npx skills@latest add MoraesGil/Dedalo3Dskills --skill destacar-relevo-3d
+```
+
+> Use destacar-relevo-3d com esta imagem e esta peça. Identifique o desenho, confira escala e superfície e crie um contorno branco elevado. Preserve o furo e os dados do projeto. Confirme a raiz branca no G-code novo.
+
+O helper opcional gera apenas uma malha plana. Ele não lê a imagem, edita um 3MF nem fatia. [Veja o contrato e o exemplo sintético](skills/printing/destacar-relevo-3d/SKILL.md).
 
 ## Como funciona
 

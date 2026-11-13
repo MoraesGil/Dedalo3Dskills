@@ -49,6 +49,7 @@ Ask your agent to read the relevant `SKILL.md` from the checkout. Read it yourse
 | --- | --- | --- |
 | [Prender3D](skills/printing/prender-3d/SKILL.md) | Tall grips, small contact areas and other parts that need limited lateral restraint. | Measure the geometry and use the contact zones, height and keepouts requested for that part. |
 | [PrenderPolvo3D](skills/printing/prender-polvo-3d/SKILL.md) | Articulated octopi that match the supported eight-arm geometry. | Protect the joints and keep the approved low support profile on the fixed common base. |
+| [Destacar relevo 3D](skills/printing/destacar-relevo-3d/SKILL.md) | Raised outlines, emblems and selected accents from a reference image. | Register the image to the surface and verify the colored root in fresh G-code. |
 
 Prender3D is the reusable core. PrenderPolvo3D adds a measured radial layout and a specific octopus profile. New skills will join this catalog as they become useful and ready to share.
 
@@ -65,6 +66,16 @@ The height in this prompt is a user constraint, not a universal recommendation. 
 > Use PrenderPolvo3D on this octopus. First confirm that its geometry matches the eight-arm template. Use the approved 0–3 mm support profile on the common base, with contact to the fixed body and protection around the moving joints. Use compact blockers that follow the measured shape. Keep brim off the body, tentacles and support tree. Preserve the assembly and validate the fresh G-code.
 
 The 3 mm profile belongs to this template's common base. It does not mean half the height of any themed head, and it is not a default for unrelated parts.
+
+## Create a raised highlight
+
+```bash
+npx skills@latest add MoraesGil/Dedalo3Dskills --skill destacar-relevo-3d
+```
+
+> Use destacar-relevo-3d with this image and part. Identify the motif, verify scale and surface registration, and create a raised white outline. Preserve the opening and project data. Confirm the white root in fresh G-code.
+
+The optional helper generates a planar relief mesh only. It does not read images, edit a 3MF or slice. [Read the contract and synthetic example](skills/printing/destacar-relevo-3d/SKILL.md).
 
 ## How the workflow works
 
