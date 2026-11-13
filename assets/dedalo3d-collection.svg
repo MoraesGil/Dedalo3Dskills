@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="350" viewBox="0 0 1120 350" role="img" aria-labelledby="title desc">
+<title id="title">Dedalo3Dskills — a collection for 3D print preparation</title>
+<desc id="desc">Five schematic cards represent geometry analysis, a custom footprint, low native retention, protected articulation, and a Burj-inspired priming tower. The banner is a conceptual illustration, not a slicer preview or physical print result.</desc>
+<rect width="1120" height="350" rx="18" fill="#101f2f"/>
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="32" y="34" fill="#64e3a6" font-size="15" letter-spacing="3">DEDALO3D / SKILLS</text>
+<text x="32" y="82" fill="#f0f5f8" font-size="34" font-weight="700">Skills and tools for 3D print preparation.</text>
+<text x="32" y="115" fill="#a4b7c8" font-size="18">Inspect geometry. Plan contact. Protect movement. Prepare material changes.</text>
+<g fill="#162a3c" stroke="#2c465d">
+<rect x="32" y="147" width="200" height="155" rx="12"/><rect x="246" y="147" width="200" height="155" rx="12"/><rect x="460" y="147" width="200" height="155" rx="12"/><rect x="674" y="147" width="200" height="155" rx="12"/><rect x="888" y="147" width="200" height="155" rx="12"/>
+</g>
+<g fill="none" stroke-width="2">
+<path d="M97 176h66v57H97z M97 190h66 M97 205h66 M97 220h66" stroke="#8499ad"/><ellipse cx="130" cy="204" rx="44" ry="10" stroke="#67b9ff"/>
+<ellipse cx="346" cy="207" rx="53" ry="28" stroke="#64e3a6"/><ellipse cx="346" cy="207" rx="43" ry="19" stroke="#64e3a6"/><circle cx="346" cy="207" r="14" stroke="#f0f5f8"/><path d="M302 179h88" stroke="#8499ad"/><circle cx="350" cy="179" r="4" fill="#64e3a6" stroke="#64e3a6"/>
+<path d="M548 172h25v64h-25z" stroke="#8499ad"/><path d="M532 239l6-13 10-7 M589 239l-6-13-10-7" stroke="#64e3a6" stroke-width="5"/><ellipse cx="560" cy="240" rx="46" ry="6" stroke="#64e3a6"/>
+<circle cx="774" cy="207" r="23" stroke="#f0f5f8"/><path d="M774 164v20 M774 230v20 M731 207h20 M797 207h20 M744 177l14 14 M790 223l14 14 M744 237l14-14 M790 191l14-14" stroke="#8499ad" stroke-width="7"/><path d="M752 197l-7-3 M785 186l3-7 M797 218l7 3 M763 228l-3 7" stroke="#64e3a6" stroke-width="5"/><circle cx="774" cy="170" r="7" stroke="#ffbf69" stroke-dasharray="3 3"/>
+<path d="M958 242v-19h8v-17h8v-16h7v-16h7v-13h8v13h7v16h7v16h8v17h8v19z" stroke="#64e3a6"/><path d="M958 237h68 M966 220h52 M974 203h36 M981 186h22" stroke="#67b9ff"/><path d="M958 230h68 M974 197h36" stroke="#ffbf69"/>
+</g>
+<g fill="#f0f5f8" font-size="20" font-weight="700" text-anchor="middle"><text x="132" y="270">Analyze</text><text x="346" y="270">Footprint</text><text x="560" y="270">Retain</text><text x="774" y="270">Articulate</text><text x="988" y="270">Prime</text></g>
+<g fill="#a4b7c8" font-size="13" text-anchor="middle"><text x="132" y="289">geometry preflight</text><text x="346" y="289">parametric mask plan</text><text x="560" y="289">native lateral braces</text><text x="774" y="289">protected joint spaces</text><text x="988" y="289">Burj-inspired layer plan</text></g>
+<text x="32" y="330" fill="#a4b7c8" font-size="13">Original agent workflows + custom tools · MIT / commercial use · Concept illustrations</text>
+</g></svg>

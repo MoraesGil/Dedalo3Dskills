@@ -1,0 +1,3 @@
+# Complete synthetic test suite; per-skill dependencies remain standalone.
+-r skills/printing/prender-3d/requirements.txt
+-r skills/printing/destacar-relevo-3d/requirements.txt

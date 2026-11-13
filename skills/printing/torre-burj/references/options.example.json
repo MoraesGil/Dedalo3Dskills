@@ -1,0 +1,17 @@
+{
+  "plate": 1,
+  "primary_object_ids": [1, 2],
+  "model_tools": [0, 1],
+  "interface_tool": null,
+  "minimum_width_mm": 24,
+  "maximum_width_mm": 48,
+  "brim_mm": 6,
+  "clearance_mm": 2,
+  "line_width_mm": 0.5,
+  "structural_infill_percent": 10,
+  "speed_mm_s": 40,
+  "purge_volume_mm3": {"0": 12, "1": 12},
+  "envelope_taper_power": 1,
+  "foundation_height_mm": null,
+  "center_xy": null
+}

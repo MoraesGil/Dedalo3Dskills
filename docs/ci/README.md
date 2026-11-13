@@ -12,7 +12,7 @@ A workflow stored under docs does not run automatically. To enable it in your ow
 
 You can run the same checks locally without GitHub credentials:
 
-    python -m pip install -r skills/printing/prender-3d/requirements.txt
+    python -m pip install -r requirements-dev.txt
     python scripts/validate_repository.py
     python -m unittest discover -s tests -v
 

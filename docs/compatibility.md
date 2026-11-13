@@ -9,10 +9,10 @@
 | Input | Complete Orca/Bambu-family 3MF project with `Metadata/model_settings.config` and `Metadata/project_settings.config` |
 | Geometry | Millimetres, configured multipart roots, supported package-local mesh references |
 | Builds | Rigid, upright and on the bed; unsupported rotations/scales must be adapted explicitly |
-| Output | New temporary 3MF with native support modifiers; the source is preserved |
+| Output | Read-only JSON reports/plans, or new temporary 3MF from the explicitly selected editor; source preserved |
 | Slicer | Native engine supplied by the user; reference workflow tested with Snapmaker Orca |
 | Materials | Existing physical slots; no bundled printer/material calibration |
-| Installation | Generic skill can stand alone; octopus specialization needs its sibling generic skill |
+| Installation | Generic skill can stand alone; analysis, footprint, octopus and Burj skills reuse its project helpers |
 | Python | Python 3.12 is the tested runtime; install the declared geometry dependencies |
 
 STL, OBJ and mesh-only 3MF are not direct inputs to these project editors. Import them into a compatible slicer, assign the printer/materials, orient the model and save a complete project first.
@@ -31,6 +31,10 @@ The specialization's imports require `prender-3d` alongside `prender-polvo-3d`. 
 
 ## What geometry analysis means here
 
+`analyze-3d-geometry` reports actual planar mesh sections at its declared first-layer plane. Resolved negative sections are subtracted in 2D where supported. This is not a full slicer Boolean or proof of the physical first-layer toolpath. The report records unresolved features instead of automatically classifying every joint.
+
+`custom-footprint` plans native mask descriptors using explicit fixed-part selection, height, contour and keepouts. It writes JSON only. The guarded retention CLI applies reviewed regions and settings in a separate step. A successful plan does not prove that the slicer generated useful support contact.
+
 The agent inspects measurements, identifies useful fixed contacts and plans the constraints. Scripts parse positive geometry, describe masks and preserve project structure. A conservative convex mask may cover empty concavities; tighter geometry and keepouts remain necessary where those spaces matter.
 
 The helpers do not solve printer dynamics, identify every functional joint automatically, or calibrate a universally correct support gap.
@@ -45,7 +49,9 @@ Use `apply_retention.py` as the guarded entry point. It accepts only native rete
 
 Synthetic automated tests exercise parsing, mask geometry, ownership, idempotent updates, rejected operations and template detection. They do not run a slicer or a printer.
 
-The public package does not ship the private project-specific wrappers used during development. In particular, it does not ship a broad G-code/temperature/spiral-travel validator. Native support contact, collision and machine checks must be performed for each output.
+The Burj export additionally has a synthetic pilot sliced by native Snapmaker Orca build `9bf2f18`: one custom tower, 72 real changes, identical executable commands with object-flush flags off/on, and the tower ending at the last change at 16 mm. Those explicit-command checks passed. Native U1 G-code also calls firmware macros whose bodies are not available to this parser: the strict overall audit remains incomplete (`passed=false`, exit 2), with command-level success reported separately. It does not certify motion or extrusion hidden inside those macros. The native prime-tower path creates another tower; it is not the supported single-Burj mode. See the [Burj skill](../skills/printing/torre-burj/SKILL.md) for the contract and limits. No physical cleaning or adhesion test was performed for this export.
+
+The public package does not ship private project-specific wrappers or a universal G-code/spiral-travel validator. The included Burj audit is specialized to its own plan. Native support contact, collision and machine checks must be performed for each output.
 
 The helpers neither start prints nor change a live printer's speed, temperature or fans. A physical print is required to verify adhesion, movement and removability.
 

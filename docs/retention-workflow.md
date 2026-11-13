@@ -4,6 +4,8 @@
 
 The goal is low lateral restraint at useful fixed surfaces. The agent measures and plans. Native slicer supports and the permitted brim provide the printed restraint.
 
+![Concept: native supports brace fixed walls while articulated joints remain clear.](../assets/prender3d-overview.svg)
+
 ## 1. Inspect the source
 
 Start with a saved, complete Orca/Bambu-family 3MF project. Close that document before editing its files. Record its SHA-256 and keep an untouched backup outside the model's production folder.
@@ -11,6 +13,8 @@ Start with a saved, complete Orca/Bambu-family 3MF project. Close that document 
 Identify the printer, bed, material slots, target plate, individual assembly roots, orientations and existing modifiers. Inspect actual meshes and transforms. A filename or a ZIP entry count does not establish geometry or ownership.
 
 Measure the real first-layer footprint. Identify fixed walls that can receive marks, functional holes, sockets, gears, articulated segments and their motion space. Keep an independent assembly for each unit.
+
+The [geometry analysis skill](../skills/analysis/analyze-3d-geometry/SKILL.md) provides a read-only starting report. It does not infer every functional keepout from shape alone.
 
 ## 2. Set a bounded plan
 
@@ -35,6 +39,8 @@ There is no universal speed or temperature preset in this package. Preserve the 
 Use a cylinder for a radial body or a measured outline for another shape. The generic helper can make a conservative rounded convex contour. Concave targets next to other parts need a closer custom mesh and a clearance check.
 
 A narrow box can be appropriate for a local planar contact. A large box around a round object can block a nearby tower or erase useful contact.
+
+Use [custom-footprint](../skills/printing/custom-footprint/SKILL.md) to generate parameterized native mask descriptors from measured contours, selected fixed parts and explicit keepouts. Review the JSON before applying it.
 
 Use only native `support_enforcer` and `support_blocker` parts for retention. Keep the product's normal parts, paint, negative parts and transforms. The core rejects a printable retention collar, base or web.
 
@@ -96,7 +102,7 @@ A passing native exit code proves only that the engine produced output. Check th
 - Support, brim, towers, wipes, travel and lift paths fit the actual printer's usable area.
 - Material assignment, temperatures, cooling and multi-tool order remain valid.
 
-A custom prime tower or per-layer colour schedule may need regeneration after any support change. This package does not build or certify those schedules.
+A custom tower or per-layer colour schedule needs regeneration after a support change. The retention helpers do not handle that work; use the separate [Burj skill](../skills/printing/torre-burj/SKILL.md) and audit its final G-code.
 
 The public package does not include a universal G-code validator. Complete native and geometric checks remain part of the agent's job; do not promote a modifier preview to print validation.
 

@@ -25,6 +25,8 @@ Record the local coordinate frame, outline width, external rise, buried depth, s
 
 The optional [planar helper](scripts/build_relief.py) makes **only a relief mesh**, from a reviewed XY polygon in millimetres. It does not read an image, project onto a curved surface, edit a 3MF, detect open documents, assign materials, or slice. Install [requirements.txt](requirements.txt) separately. Its [synthetic mask](examples/shield-mask.json) preserves a central functional opening.
 
+It refuses nonfinite or malformed dimensions, degenerate rings and unrepresentable root/rise values. Binary STL uses float32 coordinates; export is refused before file creation if any coordinate would move by more than 0.0001 mm, the serialized solid changes topology, or the root/rise disappears. The report separates source bounds from reloaded export bounds. Use a reviewed local frame rather than accepting a distorted relief. Output is exclusive and owner-readable/writable only.
+
 ~~~sh
 python scripts/build_relief.py examples/shield-mask.json /tmp/highlight.stl \
   --mode outline --width 0.85 --surface-z 3 --rise 0.64 --root 0.40
