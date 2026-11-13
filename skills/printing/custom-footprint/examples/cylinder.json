@@ -1,0 +1,11 @@
+{
+  "shape": "circle",
+  "all_positive_fixed": true,
+  "height_mm": 3,
+  "margin_mm": 0.6,
+  "contact_angles_deg": [0, 90, 180, 270],
+  "contact_depth_mm": 2,
+  "contact_width_mm": 2,
+  "keepout_clearance_mm": 0.6,
+  "brim": {"type": "outer_only", "width_mm": 4, "tree_width_mm": 0}
+}

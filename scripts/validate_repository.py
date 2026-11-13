@@ -34,6 +34,25 @@ def main():
     if not skills or len(names) != len(set(names)):
         failures.append(("skills", "missing skills or duplicate names"))
 
+    preview_path = ROOT / "assets/previews/catalog.json"
+    try:
+        preview_catalog = json.loads(preview_path.read_text())
+        previews = preview_catalog["previews"]
+        if (preview_catalog.get("concept_only") is not True or
+                sorted(item["skill"] for item in previews) != sorted(names)):
+            failures.append(("assets/previews/catalog.json", "one conceptual preview per skill required"))
+        for preview in previews:
+            for key, magic in (("gif", b"GIF8"), ("poster", b"\x89PNG")):
+                candidate = (preview_path.parent / preview[key]).resolve()
+                if not candidate.is_relative_to(preview_path.parent) or not candidate.is_file():
+                    failures.append(("assets/previews/catalog.json", "invalid preview path"))
+                elif not candidate.read_bytes().startswith(magic):
+                    failures.append((str(candidate.relative_to(ROOT)), "unexpected image format"))
+            if preview.get("concept_only") is not True:
+                failures.append((preview["skill"], "preview must declare conceptual scope"))
+    except (OSError, ValueError, KeyError, TypeError):
+        failures.append(("assets/previews/catalog.json", "invalid or missing preview catalog"))
+
     private_roots = ("/" + "Users/", "/" + "Volumes/", "file:" + "//")
     secret_patterns = (
         re.compile(r"(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})"),

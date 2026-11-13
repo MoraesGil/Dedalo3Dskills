@@ -16,6 +16,8 @@ Install the Python dependencies from requirements.txt in this skill directory. T
 
 The octopus specialization is a separate skill, prender-polvo-3d. If using it, install both skill directories side by side under the same parent; its scripts import this skill's helpers.
 
+For a read-only section report, use the optional analyze-3d-geometry skill. For parameterized contours, contact angles and keepouts, use custom-footprint to generate the regions JSON, then review it before applying retention. Those skills reuse this skill's project reader; they do not replace the final native slice or add a printable base.
+
 ## Define the retention contract
 
 Before editing, record the target root and plate, orientation, measured first-layer contact, maximum support height, fixed surfaces allowed to receive contact, and protected joints, gears, holes, sockets, and nearby objects. Separate the support's total height, the enforcer's Z thickness, and the tree branch diameter.

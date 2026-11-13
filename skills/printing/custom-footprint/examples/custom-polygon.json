@@ -1,0 +1,13 @@
+{
+  "shape": "polygon",
+  "shape_parameters": {
+    "points_xy": [[-11, -11], [11, -11], [11, 1], [1, 1], [1, 11], [-11, 11]]
+  },
+  "fixed_part_ids": [1],
+  "height_mm": 3,
+  "margin_mm": 0.6,
+  "center_xy": [-5, -5],
+  "contact_angles_deg": [0, 90, 180, 270],
+  "keepout_polygons_xy": [[[5, 5], [11, 5], [11, 11], [5, 11]]],
+  "keepout_clearance_mm": 0.6
+}

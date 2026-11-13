@@ -13,3 +13,7 @@ htmlcov/
 *.stp
 *.zip
 .agent-scratch/
+.temp/
+.agents/
+.claude/
+node_modules/

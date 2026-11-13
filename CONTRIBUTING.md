@@ -16,7 +16,9 @@ Pull requests are welcome. Keep each one focused on a single problem.
 - Honest validation: separate a geometry check, a successful slice, G-code inspection and a physical print.
 - A catalog entry and usage example, with dependencies and compatibility limits.
 
-Place printing skills under `skills/printing/<skill-name>/`. Keep shared helpers in their owning skill and declare dependencies instead of duplicating them. Add detailed user guidance under `docs/` when it helps.
+Place read-only analysis skills under `skills/analysis/<skill-name>/` and print-preparation skills under `skills/printing/<skill-name>/`. Keep helpers in their owning skill and declare dependencies instead of duplicating them. Test both the categorized checkout and the flat sibling layout used by skill installers. Checkout-only entry points belong in `tools/dedalo3d/` and must remain thin wrappers.
+
+Give each catalogued skill an original synthetic GIF under `assets/previews/`, a static PNG fallback and an entry in the preview catalog. Label concept diagrams clearly; a diagram is not evidence of slicing or a successful print. Keep the renderer reproducible and free of private fonts or models. Add focused references or examples when they make the skill easier to use.
 
 ## Use files that can be shared
 
