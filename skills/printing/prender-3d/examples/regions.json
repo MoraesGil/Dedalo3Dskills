@@ -1,0 +1,37 @@
+[
+  {
+    "role": "east",
+    "label": "Synthetic cylinder east contact",
+    "subtype": "support_enforcer",
+    "shape": "cube",
+    "values": [[4, 2, 3], [10, 0, 1.5]]
+  },
+  {
+    "role": "north",
+    "label": "Synthetic cylinder north contact",
+    "subtype": "support_enforcer",
+    "shape": "cube",
+    "values": [[4, 2, 3], [0, 10, 1.5], 90]
+  },
+  {
+    "role": "west",
+    "label": "Synthetic cylinder west contact",
+    "subtype": "support_enforcer",
+    "shape": "cube",
+    "values": [[4, 2, 3], [-10, 0, 1.5], 180]
+  },
+  {
+    "role": "south",
+    "label": "Synthetic cylinder south contact",
+    "subtype": "support_enforcer",
+    "shape": "cube",
+    "values": [[4, 2, 3], [0, -10, 1.5], 270]
+  },
+  {
+    "role": "upper",
+    "label": "Synthetic cylinder circular height band",
+    "subtype": "support_blocker",
+    "shape": "cylinder",
+    "values": [10.7, 3, [0, 0, 4.5], 128]
+  }
+]

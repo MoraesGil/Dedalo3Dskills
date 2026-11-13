@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.DS_Store
+.pytest_cache/
+.coverage
+htmlcov/
+*.gcode
+*.3mf
+*.stl
+*.step
+*.stp
+*.zip
+.agent-scratch/
