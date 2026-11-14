@@ -6,6 +6,8 @@ license: MIT
 
 # PrenderPolvo3D
 
+[English guide](README.md) · [Guia em português](README.pt-BR.md)
+
 Use [Prender3D](../prender-3d/SKILL.md) for its retention contract, source preservation, native slicing, and final validation. This specialization recognizes a narrow eight-arm geometry pattern and adds radial contact placement and tentacle keepouts. It does not turn an arbitrary octopus mesh into a supported design.
 
 ## Install the dependency
@@ -50,11 +52,11 @@ Do not infer a region from the detector's top_z_local: that is the top of all po
 
 ## Required native gate
 
-Supply the actual target slicer externally and slice the complete saved candidate. Verify all nine contacts from the first layer, low-body contact above that layer, continuity, the actual support ceiling, and no support in moving joints or sockets. Measure physical line widths and clearance across every support layer and every copy. Check zero brim on the octopus, tentacles and tree, plus clearance from towers, neighbours, bed boundaries and lift/travel paths.
+Supply the actual target slicer externally and slice the complete saved candidate. Keep its native G-code in a temporary directory for measurement and validation. Never write, patch or deliver custom G-code. Verify all nine contacts from the first layer, low-body contact above that layer, continuity, the actual support ceiling, and no support in moving joints or sockets. Measure physical line widths and clearance across every support layer and every copy. Check zero brim on the octopus, tentacles and tree, plus clearance from towers, neighbours, bed boundaries and lift/travel paths.
 
-The repository does not bundle a universal octopus G-code validator. Detection or helper exit code 0 proves neither support contact nor physical adhesion. Integrate only the reviewed delta into the current source and slice the final saved project again. Report hashes and digital checks separately from physical print results.
+The repository does not bundle a universal octopus G-code validator. Detection or helper exit code 0 proves neither support contact nor physical adhesion. If a contact is missing or a joint is obstructed, adjust the masks in the 3MF and re-slice. Integrate the reviewed changes into the current source, save it and repeat the checks on a fresh native slice. For print preparation, deliver the configured, editable 3MF with the contacts and keepouts. Report hashes and digital checks separately from physical print results.
 
 ~~~text
 Confirm the supported pattern → measure the fixed base → stage nine contacts
-    → slice and verify joints, height and contact → physical print test
+    → slice and verify joints, height and contact → deliver the configured 3MF
 ~~~

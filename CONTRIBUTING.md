@@ -14,7 +14,8 @@ Pull requests are welcome. Keep each one focused on a single problem.
 - Explicit contact zones, height limits and protected features when the skill creates supports or other geometry.
 - Reusable helpers and a small reproducible check when code is needed.
 - Honest validation: separate a geometry check, a successful slice, G-code inspection and a physical print.
-- A catalog entry and usage example, with dependencies and compatibility limits.
+- A catalog entry linking to reader guides in English and Brazilian Portuguese (`README.md` and `README.pt-BR.md` inside the skill). Explain why the skill exists, give an example and identify the result. Keep the technical instructions in `SKILL.md`.
+- For preparation, save and deliver a re-sliceable 3MF. Use only the slicer’s original G-code as temporary validation input. Read-only analysis, plan-only requests and intermediate mesh builders have their own stated outputs.
 
 Place read-only analysis skills under `skills/analysis/<skill-name>/` and print-preparation skills under `skills/printing/<skill-name>/`. Keep helpers in their owning skill and declare dependencies instead of duplicating them. Test both the categorized checkout and the flat sibling layout used by skill installers. Checkout-only entry points belong in `tools/dedalo3d/` and must remain thin wrappers.
 

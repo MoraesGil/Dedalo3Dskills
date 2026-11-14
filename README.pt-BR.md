@@ -1,27 +1,47 @@
 # Dedalo3Dskills
 
-[![Licença: MIT](https://img.shields.io/badge/License-MIT-64e3a6.svg)](LICENSE)
+[![Licença: MIT](https://img.shields.io/badge/License-MIT-64e3a6.svg)](LICENSE) · [English](README.md) · [As seis skills](#catálogo-de-skills) · [Instalar](#instalar)
 
-**Meça a peça. Prepare a impressão. Confira as trajetórias.**
+Estas skills nasceram de problemas que encontramos na impressora: uma torre de purga que quebra no meio de uma peça alta, um cabo que balança na mesa, um suporte que trava a articulação. **Quando você pede a preparação da peça, recebe o projeto `.3mf` configurado.** Você pode abri-lo e fatiá-lo de novo. O fatiador gera o G-code; as skills leem uma cópia temporária para conferir o resultado.
 
-Skills e ferramentas determinísticas para impressão 3D: análise de geometria, área de contato parametrizável, retenção localizada, relevo guiado por imagem e torre Burj de purga e preparação do bico.
+## Torre Burj: da mesa de impressão para a estante
 
-[English](README.md) · [Catálogo](#catálogo-de-skills) · [Ferramentas](tools/README.md) · [MIT — uso comercial permitido](LICENSE)
+Torre de purga quebrando no meio de uma impressão alta? Foi para evitar isso que criamos a **Burj**. Inspirada na **Burj Khalifa**, ela começa com uma base larga de três alas e afina conforme a peça perde largura. A base dá mais contato com a mesa. Depois da última troca de ferramenta, a peça pode continuar subindo sozinha. Ao tirar a torre da chapa, você pode guardá-la como um pequeno edifício decorativo.
 
-![Coleção Dedalo3Dskills: geometria, contato, retenção, polvos articulados e torre Burj.](assets/dedalo3d-collection.svg)
+[![Ilustração técnica de uma peça alta ao lado da torre Burj. A torre tem base larga de três alas e termina mais estreita, abaixo do topo da peça.](assets/previews/burj-tall-print.svg)](assets/previews/burj-tall-print.svg)
+
+*Neste exemplo, o vaso de 184,8 mm fica ao lado da Burj. A torre verde tem 48 mm de largura na base e 24 mm no topo. Ela termina na última troca, em Z = 144 mm.*
+
+Já usamos **PETG na peça e PLA na interface do suporte na mesma impressão**, em cabeçotes separados. A cada troca real, o novo cabeçote faz uma passagem completa na Burj antes de voltar à peça ou ao suporte. A prime tower nativa fica desligada: só há uma torre na mesa.
+
+[Veja o formato da torre, o uso de PETG com PLA e o que foi testado →](skills/printing/torre-burj/README.pt-BR.md)
+
+## Prender3D: como firmar um cabo alto
+
+Um cabo alto pode balançar mesmo com uma boa primeira camada. Um brim mais largo ajuda junto à mesa, mas não apoia a parede acima dela. Criamos a **Prender3D** para encostar suportes baixos e removíveis do fatiador nas laterais *fixas* da peça. Você escolhe onde aceita marcas de contato e quais encaixes, roscas ou articulações precisam ficar livres. A forma da peça permanece igual.
+
+[Veja onde os apoios encostam e como conferir o contato →](skills/printing/prender-3d/README.pt-BR.md)
 
 ## Catálogo de skills
 
-Clique na prévia para abrir o GIF em tamanho integral. As animações são conceitos sintéticos, sem teste de fatiamento ou impressão.
+Abra o nome da skill para ver por que ela existe, um exemplo de pedido e o resultado esperado. Clique na miniatura para ampliar a ilustração ou ver a animação.
 
-| Prévia | Skill | Quando usar |
+| Prévia | Guia da skill | Quando usar |
 | --- | --- | --- |
-| [<img src="assets/previews/analyze-3d-geometry.gif" width="220" alt="Conceito sintético: Analyze 3D geometry">](assets/previews/analyze-3d-geometry.gif) | [Analyze 3D geometry](skills/analysis/analyze-3d-geometry/SKILL.md) | Inspecionar assemblies, transforms e seções da primeira camada. |
-| [<img src="assets/previews/custom-footprint.gif" width="220" alt="Conceito sintético: Custom footprint">](assets/previews/custom-footprint.gif) | [Custom footprint](skills/printing/custom-footprint/SKILL.md) | Parametrizar máscaras de suporte, contatos e áreas protegidas. |
-| [<img src="assets/previews/prender-3d.gif" width="220" alt="Conceito sintético: Prender3D">](assets/previews/prender-3d.gif) | [Prender3D](skills/printing/prender-3d/SKILL.md) | Firmar paredes fixas com suporte baixo e brim nativos. |
-| [<img src="assets/previews/prender-polvo-3d.gif" width="220" alt="Conceito sintético: PrenderPolvo3D">](assets/previews/prender-polvo-3d.gif) | [PrenderPolvo3D](skills/printing/prender-polvo-3d/SKILL.md) | Proteger as articulações da família de polvos compatível. |
-| [<img src="assets/previews/torre-burj.gif" width="220" alt="Conceito sintético: Torre Burj">](assets/previews/torre-burj.gif) | [Torre Burj](skills/printing/torre-burj/SKILL.md) | Calcular uma torre de purga a partir de G-code novo. |
-| [<img src="assets/previews/destacar-relevo-3d.gif" width="220" alt="Conceito sintético: Destacar relevo 3D">](assets/previews/destacar-relevo-3d.gif) | [Destacar relevo 3D](skills/printing/destacar-relevo-3d/SKILL.md) | Planejar contornos e emblemas por imagem; helper STL plano. |
+| [<img src="assets/previews/burj-tall-print.svg" width="156" alt="Torre Burj ao lado de uma peça alta">](assets/previews/burj-tall-print.svg) | [Torre Burj](skills/printing/torre-burj/README.pt-BR.md) | Incluir uma torre de purga e preparação dimensionada pela peça e pelas trocas reais. |
+| [<img src="assets/previews/prender-3d.gif" width="156" alt="Apoios baixos em um cabo">](assets/previews/prender-3d.gif) | [Prender3D](skills/printing/prender-3d/README.pt-BR.md) | Firmar paredes fixas sem fechar o encaixe nem acrescentar uma base sólida. |
+| [<img src="assets/previews/analyze-3d-geometry.gif" width="156" alt="Seção transversal de uma peça">](assets/previews/analyze-3d-geometry.gif) | [Análise de geometria 3D](skills/analysis/analyze-3d-geometry/README.pt-BR.md) | Medir a seção da primeira camada e identificar áreas que devem ficar livres. Gera um relatório. |
+| [<img src="assets/previews/custom-footprint.gif" width="156" alt="Zonas de contato no contorno da base">](assets/previews/custom-footprint.gif) | [Área de contato sob medida](skills/printing/custom-footprint/README.pt-BR.md) | Escolher onde o suporte pode encostar. O planejador devolve um plano em JSON. |
+| [<img src="assets/previews/prender-polvo-3d.gif" width="156" alt="Articulações protegidas no polvo">](assets/previews/prender-polvo-3d.gif) | [PrenderPolvo3D](skills/printing/prender-polvo-3d/README.pt-BR.md) | Firmar o corpo fixo de um polvo compatível e deixar os oito braços livres. |
+| [<img src="assets/previews/destacar-relevo-3d.gif" width="156" alt="Contorno em relevo sobre a peça">](assets/previews/destacar-relevo-3d.gif) | [Destaque em relevo 3D](skills/printing/destacar-relevo-3d/README.pt-BR.md) | Transformar o contorno de uma imagem em relevo no projeto. O script para superfícies planas gera um STL intermediário. |
+
+As ilustrações mostram a geometria prevista. A [galeria de animações](assets/previews/README.md) inclui versões estáticas. Não são fotos de impressão nem gravações do fatiador.
+
+## Fatiar sem abrir a interface gráfica
+
+Nosso [Snapmaker Orca MCP e seu launcher Bash](https://github.com/MoraesGil/snapmaker-orca-mcp) usam o **motor nativo do Snapmaker Orca instalado no Mac**. Indique o `.3mf` salvo e a mesa de produção. O agente pode chamar `slice_3mf`; pelo terminal, basta executar o launcher. Isso poupa o tempo de abrir a interface, escolher a mesa e exportar a cada ajuste. [Veja o comando e o exemplo para MCP](docs/slicing.md).
+
+Confira as trajetórias do fatiamento nativo. Se algo sair errado, corrija o **projeto** e volte a fatiar. Entregue o `.3mf` salvo que reproduz as trajetórias esperadas. O G-code de validação fica na pasta de trabalho.
 
 ## Instalar
 
@@ -31,7 +51,7 @@ Use o [skills CLI](https://github.com/vercel-labs/skills):
 npx skills@latest add MoraesGil/Dedalo3Dskills --skill analyze-3d-geometry custom-footprint prender-3d prender-polvo-3d torre-burj destacar-relevo-3d
 ```
 
-Selecione seu agente. A instalação padrão fica no projeto atual. As skills de análise, footprint e polvo usam `prender-3d`; instale-as juntas. A Burj é independente. As instruções declaram as dependências; o instalador pode não resolvê-las automaticamente.
+Selecione seu agente. A instalação padrão fica no projeto atual. As skills de análise, área de contato e polvo usam `prender-3d`. Para planejar a área de contato, instale também `analyze-3d-geometry`. A Burj é independente. Instale as dependências indicadas em cada skill; o instalador pode não resolvê-las automaticamente.
 
 Para usar o código do repositório, crie um ambiente virtual Python e instale as dependências:
 
@@ -41,69 +61,15 @@ cd Dedalo3Dskills
 python -m pip install -r skills/printing/prender-3d/requirements.txt
 ```
 
-Python 3.12 é a versão testada. Leia o `SKILL.md` antes de executar os scripts. O pacote não inclui fatiador, preset de impressora ou conexão com impressora.
-
-## Exemplos de uso
-
-### Analisar antes de editar
-
-> Analise este 3MF sem alterá-lo. Meça a seção da primeira camada, identifique os assemblies e modificadores, e mostre as paredes fixas e regiões protegidas que precisam de revisão.
-
-### Parametrizar a área de contato
-
-> Planeje uma área de retenção elíptica com oito ângulos de contato, altura máxima de 3 mm e áreas protegidas nas articulações. Preserve o encaixe. Gere os descritores dos modificadores para revisão.
-
-O planejador gera JSON. Aplicar o plano e fatiar são etapas separadas. Custom footprint define o contato de suporte e brim. Não cria colar, pé ou base sólida na peça.
-
-### Firmar um cabo alto
-
-> Use Prender3D neste cabo. Meça as paredes fixas e o contato com a mesa. Crie apoio lateral baixo dentro da altura que pedi. Proteja o encaixe, preserve geometria e ajustes, e confira um fatiamento novo.
-
-O apoio precisa tocar a parede fixa acima da primeira camada e ter continuidade até a mesa. Uma ilha de suporte separada não segura a peça. Nossos testes com cabos motivaram este fluxo; eles não garantem adesão em qualquer impressora e material.
-
-### Proteger as articulações
-
-> Use PrenderPolvo3D se a geometria corresponder ao modelo da skill. Mantenha suporte na faixa aprovada de 0–3 mm da base fixa comum. Use blockers que sigam o formato e proteja todas as articulações. Não coloque brim no polvo nem na tree.
-
-Os 3 mm são o perfil da base comum. Não representam metade da cabeça temática. Altura do suporte, espessura do enforcer e diâmetro do ramo são parâmetros distintos.
-
-### Criar uma torre Burj de purga
-
-> Calcule uma Burj com o projeto salvo e seu G-code novo sem torre. Preserve impressora, materiais e temperaturas. Faça uma passagem completa na Burj após cada troca real, antes de imprimir peça ou interface. Termine na última troca. Valide o G-code final.
-
-A forma foi inspirada na **Burj Khalifa**. A base ampla favorece a adesão; o perfil reduz a largura na parte superior. O cálculo considera objetos de alturas e tamanhos diferentes, materiais por camada, crescimento estrutural mínimo e brim configurável. Projetos PETG, PLA e mistos usam os slots físicos já calibrados. A ferramenta não fornece temperatura universal nem garante adesão.
-
-A regra é **uma única torre física custom**. Na Snapmaker U1 testada, habilitar a prime tower nativa cria outra torre. Este fluxo a mantém desligada e verifica a extrusão real na Burj após cada troca. O checkbox “Flush into this object” sozinho não comprova purga no objeto. A [skill Burj](skills/printing/torre-burj/SKILL.md) explica os ajustes e limites.
-
-As seis animações são **diagramas conceituais sintéticos**. Não são gravações do fatiador nem prova de impressão física. Há [posters estáticos e renderer reproduzível](assets/previews/README.md).
-
-### Criar um destaque em relevo
-
-> Use destacar-relevo-3d com esta imagem e esta peça. Registre o desenho na escala medida e crie um contorno branco elevado. Preserve o furo e os dados do projeto. Confirme a raiz colorida no G-code novo.
-
-O helper opcional recebe polígonos planos revisados e gera STL fechado. Ele não lê imagens raster, edita um 3MF nem fatia. Instale suas [dependências próprias](skills/printing/destacar-relevo-3d/requirements.txt). O [GIF conceitual](assets/previews/destacar-relevo-3d.gif) compara a geometria plana, o contorno elevado e a raiz embutida.
-
-## Fluxo das skills
-
-```mermaid
-flowchart LR
-    A[Ler geometria] --> B[Definir limites e áreas protegidas]
-    B --> C[Planejar contato ou retenção]
-    C --> D[Pré-fatiamento nativo novo]
-    D --> E[Calcular uma Burj se necessário]
-    E --> F[Fatiar o projeto final salvo]
-    F --> G[Auditar trajetórias]
-    G --> H[Testar uma impressão pequena]
-```
-
-Use apenas as skills necessárias. A análise pode terminar no relatório. Uma peça monocromática pode precisar de retenção sem torre. Alterações de geometria, pintura, orientação, suporte, escala ou ajustes invalidam o cálculo anterior da torre.
+A skill de relevo tem [dependências Python próprias](skills/printing/destacar-relevo-3d/requirements.txt). Python 3.12 é a versão testada. Leia o `SKILL.md` antes de executar os scripts. O pacote não inclui fatiador, preset de impressora ou conexão com impressora.
 
 ## Organização
 
 ```text
 skills/analysis/<nome>/       Inspeção em modo somente leitura
 skills/printing/<nome>/       Preparação da impressão
-  SKILL.md                   Escopo e fluxo
+  README*.md                 Guia da skill em inglês e português brasileiro
+  SKILL.md                   Instruções para o agente
   scripts/                   Implementação incluída na instalação da skill
   references/ ou examples/   Contratos e entradas quando necessários
 tools/dedalo3d/               Comandos curtos para uso no checkout

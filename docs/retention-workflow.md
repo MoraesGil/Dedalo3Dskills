@@ -110,7 +110,7 @@ The public package does not include a universal G-code validator. Complete nativ
 
 When the staged result is accepted, reread the current original. If it changed, apply the narrow delta to that version and repeat validation. Do not copy an old staging file over newer work.
 
-Save the accepted original, invalidate its stale G-code and slice that saved original. Report the path, plate, count, input/output hashes, native exit code, observed checks and remaining physical limits.
+Save the accepted original 3MF, invalidate its stale G-code and slice that saved original. Deliver the configured 3MF; keep the unedited native G-code in the validation run. Report the path, plate, count, input/output hashes, native exit code, observed checks and remaining physical limits.
 
 Begin with a small physical test. Adhesion, vibration, surface marks, joint movement and removal depend on the actual printer and material.
 

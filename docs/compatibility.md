@@ -9,10 +9,10 @@
 | Input | Complete Orca/Bambu-family 3MF project with `Metadata/model_settings.config` and `Metadata/project_settings.config` |
 | Geometry | Millimetres, configured multipart roots, supported package-local mesh references |
 | Builds | Rigid, upright and on the bed; unsupported rotations/scales must be adapted explicitly |
-| Output | Read-only JSON reports/plans, or new temporary 3MF from the explicitly selected editor; source preserved |
+| Output | JSON report/plan for a read-only request. For preparation, stage the editor’s changes, validate the saved project and deliver the configured 3MF. Native G-code is temporary validation output. |
 | Slicer | Native engine supplied by the user; reference workflow tested with Snapmaker Orca |
 | Materials | Existing physical slots; no bundled printer/material calibration |
-| Installation | Generic skill can stand alone; analysis, footprint, octopus and Burj skills reuse its project helpers |
+| Installation | Prender3D stands alone. Analysis, footprint and octopus reuse it; footprint also calls for geometry analysis. Burj is self-contained; relief has its own dependencies. |
 | Python | Python 3.12 is the tested runtime; install the declared geometry dependencies |
 
 STL, OBJ and mesh-only 3MF are not direct inputs to these project editors. Import them into a compatible slicer, assign the printer/materials, orient the model and save a complete project first.

@@ -6,7 +6,11 @@ license: MIT
 
 # Destacar relevo 3D
 
+[English guide](README.md) · [Guia em português](README.pt-BR.md)
+
 Turn a visual reference into a measured, separately colored relief. A picture describes appearance; the target geometry supplies scale, surface depth and protected features. A colored overlay alone is not proof of a printable embedded root.
+
+For a mesh-only request, return the checked relief STL. For print preparation, integrate the relief into the editable 3MF and assign its physical filament there. Deliver the configured 3MF that the user can open and re-slice.
 
 ## Resolve the image against the part
 
@@ -34,9 +38,9 @@ python scripts/build_relief.py examples/shield-mask.json /tmp/highlight.stl \
 
 ## Prove the saved result
 
-Reread the candidate: check closed/wound solids, dimensions, surface registration, substrate and keepout clearance, colors and preserved project data. Invalidate affected embedded G-code and stale slice metadata. Slice affected production plates with the actual target engine.
+Invalidate affected embedded G-code and stale slice metadata before the final save. Reread the saved 3MF and check closed/wound solids, dimensions, surface registration, substrate and keepout clearance, colors and preserved project data. Slice the affected production plates with the actual target engine. Keep its native G-code in a temporary directory for inspection. Never write, patch or deliver custom G-code.
 
-Inspect **material-assigned extrusion paths inside the buried band and above the original surface**. Overlapping volumes can lose the buried color to slicer priority; change priority or partition geometry only after checking the actual engine. Geometry overlap, a configured slot and exit code 0 are three different observations. Repeat the slice after any priority edit.
+Inspect **material-assigned extrusion paths inside the buried band and above the original surface**. Overlapping volumes can lose the buried color to slicer priority. If the buried color is missing, correct the part priority or partition the geometry in the 3MF and re-slice. Geometry overlap, a configured slot and exit code 0 are three different observations.
 
 Report the final path/hash, affected roots/plates, dimensions, slicer/version/exit code, observed root and surface paths, protected openings and any unverified result. Do not claim a screenshot, mesh check or successful slice proves physical bonding, appearance, removal or strength. Printing requires its own user request.
 

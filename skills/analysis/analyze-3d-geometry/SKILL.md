@@ -6,7 +6,9 @@ license: MIT
 
 # Analyze 3D Geometry
 
-Use a read-only geometric baseline before choosing support contacts, a retention footprint, or a new arrangement. Distinguish the product's bounding dimensions from its actual contact with the plate. This tool measures geometry; it does not decide which components can move.
+[English guide](README.md) · [Guia em português](README.pt-BR.md)
+
+Use a read-only geometric baseline before choosing support contacts, a retention footprint, or a new arrangement. Distinguish the product's bounding dimensions from its actual contact with the plate. For an analysis-only request, return the measurements and their limits in the preflight report. The tool leaves the source untouched and does not classify moving components.
 
 ## Inputs and dependencies
 
@@ -31,7 +33,9 @@ Read the following fields before planning retention:
 - Each build instance lists plate membership, the actual build transform, transformed bounds, plate seating, and whether the current Prender3D adapter supports its pose. Measurement can report a tilted or scaled build even when that adapter must refuse it.
 - `first_layer` gives a real horizontal section of the transformed positive mesh union, minus resolved functional-negative sections at that same plane. Check `section_complete` and warnings before using its area or optional geometry.
 
-Resolve uncertain fixed walls, articulations, gears, sockets, and motion clearance with the model's design or the user. A component count or radial pattern does not prove that a component is a moving joint. For a mask plan, continue with `custom-footprint`; for octopus-specific retention, use `prender-polvo-3d`.
+Resolve uncertain fixed walls, articulations, gears, sockets, and motion clearance with the model's design or the user. A component count or radial pattern does not prove that a component is a moving joint.
+
+If the request also includes print preparation, use the report to select fixed surfaces and keepouts. Use `custom-footprint` for a mask plan or `prender-polvo-3d` for its supported octopus geometry. Apply the approved changes with a compatible project editor and deliver the configured, editable 3MF. Check its fresh native G-code in a temporary directory. If the paths fail a check, correct the 3MF and re-slice it. Never write, patch or deliver custom G-code.
 
 ## Limits that affect decisions
 
@@ -44,6 +48,5 @@ The shared reader separates disconnected boundary shells. A watertight inward-or
 Build XY coordinates are the project's plater coordinates. Plate membership is reported, but the helper does not convert each plate's origin to machine coordinates, certify bed edges, or evaluate toolhead lift and travel clearance. A fresh native slice and a physical print remain separate validation steps.
 
 ~~~text
-Complete saved 3MF → resolve geometry and transforms → section the first layer
-    → identify fixed surfaces and keepouts → plan native support → slice and inspect
+Saved 3MF → resolve transforms → section the first layer → return the preflight report
 ~~~

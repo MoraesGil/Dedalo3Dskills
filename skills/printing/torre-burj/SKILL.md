@@ -6,9 +6,13 @@ license: MIT
 
 # Torre Burj
 
+[English guide](README.md) · [Guia em português](README.pt-BR.md)
+
 Build one sacrificial tower with a three-lobed footprint inspired by the **Burj Khalifa**. Its wide foundation improves available adhesion area. Its upper width follows the largest selected object's section at each height. Printed adhesion and cleaning still require a physical test.
 
-The tool is self-contained in `scripts/`. It needs Python 3.10+ and the standard library. It does not call a printer, change G-code, install software, or send data to a service. Use an existing native Snapmaker Orca CLI to slice.
+For print preparation, deliver the configured, editable 3MF containing the tower, its material regions and native object order. Keep the native prepass and final G-code in a temporary directory for measurement and audit. Never write, patch or deliver custom G-code.
+
+The tool is self-contained in `scripts/`. It needs Python 3.10+ and the standard library. It does not call a printer, install software, or send data to a service. Use an existing native Snapmaker Orca CLI to slice.
 
 ## Inputs and scope
 
@@ -38,7 +42,7 @@ Read [native semantics](references/native-semantics.md) before changing the flag
    ```sh
    python3 scripts/burj_tower.py prepare --input source.3mf --plate 1 --output prepass.3mf
    ```
-2. Slice `prepass.3mf` with the approved native CLI. Save its plain G-code. The source and G-code hashes bind the plan; a hash alone does not prove which input a slicer used. Record the actual slicer command and executable hash.
+2. Slice `prepass.3mf` with the approved native CLI. Keep its unmodified plain G-code (`prepass.gcode`) in the temporary working directory. The source and G-code hashes bind the plan. A hash alone does not prove which input a slicer used. Record the actual slicer command and executable hash.
 3. Copy [options](references/options.example.json). Set IDs, tools, widths and any explicit constant-envelope foundation exception. Build from that exact prepass hash:
    ```sh
    python3 scripts/burj_tower.py build \
@@ -54,7 +58,8 @@ Read [native semantics](references/native-semantics.md) before changing the flag
      --project burj.3mf --gcode burj.gcode \
      --prepass-3mf prepass.3mf --prepass-gcode prepass.gcode --output audit.json
    ```
-6. Exit code 0 plus `passed=true` confirms the implemented digital gates with no unverified active macro. Exit 2 means a gate failed or active firmware macros remain unverified. The latter uses `status=firmware_unverified`; `commanded_gcode_passed=true` can still describe the explicit paths. Exit 1 means the input or operation was invalid. If deposition volume is insufficient, raise the explicit comparison budget or use `--density-boost 5` and repeat the final native slice/audit. Do not waive failed order, material, occupancy or temperature gates.
+6. Exit code 0 plus `passed=true` confirms the implemented digital gates with no unverified active macro. Exit 2 means a gate failed or active firmware macros remain unverified. In the latter case, report `status=firmware_unverified` and the observed `commanded_gcode_passed` value. Exit 1 means the input or operation was invalid.
+7. If deposition volume is insufficient, rebuild the tower in a new 3MF with `build --density-boost 5` or a reviewed comparison budget. For other failed checks, correct the 3MF and re-slice the affected plate. Audit the native slice of the rebuilt or corrected project. Report any unresolved check with the project.
 
 ## Geometry and audit rules
 
@@ -66,7 +71,7 @@ Read [native semantics](references/native-semantics.md) before changing the flag
 - A no-change layer has target preparation volume zero and only the declared 5–25% structural infill. Measured structure is reported separately.
 - Preserve external material schedule, exact phase signature and commanded temperature targets. Reject an enabled auxiliary fan.
 - Check actual commanded bead occupancy, including native brim and arc margins. A conservative conflict is a rejection; it is not proof of a physical crash.
-- Recompute after any geometry, painting, support, orientation, layout, temperature or slicing change. Re-slice the original final artifact before reporting it ready.
+- Recompute after any geometry, painting, support, orientation, layout, temperature or slicing change. Slice and audit the exact 3MF being delivered before reporting it ready.
 
 The ownership record and SHA-256 checks detect unintended changes. They are integrity tags, **not cryptographic signatures or authentication**.
 

@@ -6,7 +6,11 @@ license: MIT
 
 # Prender3D
 
+[English guide](README.md) · [Guia em português](README.pt-BR.md)
+
 Help a small footprint resist movement with a low, removable band of native slicer support. Measure the part, put contact on fixed walls, and keep moving joints and functional openings clear. Support placement is a geometric proposal until the saved project has been sliced and checked.
+
+For print preparation, deliver the configured, editable 3MF with its native support modifiers and brim settings. Use the target slicer's native G-code only for measurement and validation in a temporary directory. Never write, patch or deliver custom G-code.
 
 ## Scope and prerequisites
 
@@ -71,11 +75,11 @@ The grid's native-profile JSON is an object describing patch/envelope parameters
 2. Compare the staged archive against that source: product geometry and paint, functional negatives, components, transforms, assemblies, unrelated plates, and material settings must remain intact. Owned retention geometry must be modifiers only.
 3. Slice the complete staged project with the actual target slicer. No native-slice command is bundled here. Do not present a successful mesh edit as a successful slice.
 4. Inspect the emitted support, support-interface, and brim paths with their physical line widths. Check supported feet, continuity, lateral contact, maximum Z, moving-joint clearance, overlap between copies, purge-tower clearance, bed edges, and lift/travel arcs. The slicer may expand support feet despite zero configured expansion.
-5. Integrate only the accepted delta into the current source, invalidate old G-code, slice the final saved artifact, and report file, plate, count, slicer exit code, hashes, and observed limits. Confirm the existing machine/material requirements from the emitted G-code.
+5. If a path misses a contact or enters a protected joint, adjust the modifiers or native support settings in the 3MF and re-slice. Apply the accepted changes to the current source, invalidate old G-code, and slice the final saved 3MF. Confirm the machine and material requirements from that slice. Report the 3MF path, plate, count, slicer exit code, hashes and observed limits.
 
 No universal G-code validator is included. Physical adhesion, vibration reduction, surface marks, and removal force require a print test. Do not start or control a printer through this skill unless the user separately requests that action.
 
 ~~~text
 Measure fixed walls and keepouts → stage low native supports → slice
-    → verify contact, continuity, joints and travel → test the print
+    → verify contact, continuity, joints and travel → deliver the configured 3MF
 ~~~

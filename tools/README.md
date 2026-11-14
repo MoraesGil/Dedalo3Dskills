@@ -27,6 +27,8 @@ prepare 3MF → native prepass slice → build Burj → native final slice → a
 
 Read the [Burj instructions and examples](../skills/printing/torre-burj/SKILL.md) for exact commands. The tool does not fabricate a tower plan from a guessed model height and does not rewrite G-code after slicing. Source hashes bind artifacts; they do not prove which process produced a caller-supplied G-code.
 
+Deliver the saved, configured 3MF. Keep both native slices as working files for the audit; never patch them. The [headless slicing guide](../docs/slicing.md) covers the Bash and MCP routes.
+
 The final audit compares the bound external tool sequence, tower passages and extrusion volume. It is a focused digital check, not a printer or universal collision certification. Materials retain their existing settings. Physical cleaning, adhesion and removal require a test print.
 
 ## Concept preview renderer
